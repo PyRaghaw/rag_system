@@ -1,16 +1,17 @@
 {
   "version": 2,
   "projectSettings": {
-    "sourceFilesOutsideRootDirectory": true
+    "sourceFilesOutsideRootDirectory": true,
+    "nodeVersion": "20.x",
+    "pythonVersion": "3.12"
   },
   "buildCommand": "npm run build:all",
   "builds": [
     {
       "src": "frontend/package.json",
-      "use": "@vercel/static-builds",
+      "use": "@vercel/node",
       "config": {
-        "distDir": "frontend/dist",
-        "buildCommand": "cd frontend && npm install && npm run build"
+        "zeroConfig": true
       }
     },
     {
@@ -26,7 +27,20 @@
     {
       "src": "/api/(.*)",
       "dest": "backend/app/main.py",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "frontend/dist/static/$1"
+    },
+    {
+      "src": "/(.*\\..*)",
+      "dest": "frontend/dist/$1"
     },
     {
       "src": "/(.*)",
@@ -56,5 +70,6 @@
       "memory": 1024,
       "maxDuration": 60
     }
-  }
+  },
+  "framework": "vite"
 }
