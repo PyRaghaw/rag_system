@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  color-scheme: light;
+  --bg-main: #FEFAF6;
+  --surface-panel: #F5EBE1;
+  --surface-elevated: #FFFFFF;
+  --border-subtle: #D4B896;
+  --text-main: #0C1E3D;
+  --text-body: #1B2D4B;
+  --text-muted: #455A7A;
+  --accent-gold: #C89D66;
+  --accent-emerald: #059669;
+}
+
+html.dark, body.dark, .dark {
+  color-scheme: dark;
+  --bg-main: #0B192C;
+  --surface-panel: #102C57;
+  --surface-elevated: #15386B;
+  --border-subtle: #1E3E62;
+  --text-main: #FEFAF6;
+  --text-body: #EADBC8;
+  --text-muted: #B8C9E0;
+  --accent-gold: #E2C9A8;
+  --accent-emerald: #10B981;
+}
+
+html, body, #root {
+  min-height: 100%;
+  width: 100%;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* High-Contrast WCAG 2.1 AA/AAA Typography Helpers */
+.text-contrast-heading {
+  color: #0C1E3D;
+}
+.dark .text-contrast-heading {
+  color: #FEFAF6;
+}
+
+.text-contrast-body {
+  color: #1B2D4B;
+}
+.dark .text-contrast-body {
+  color: #EADBC8;
+}
+
+.text-contrast-muted {
+  color: #455A7A;
+}
+.dark .text-contrast-muted {
+  color: #B8C9E0;
+}
+
+/* Custom Clean Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(212, 184, 150, 0.6);
+  border-radius: 9999px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(30, 62, 98, 0.6);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(12, 30, 61, 0.7);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 219, 200, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Source Citation Highlight Background */
+.citation-highlight {
+  background-color: #EADBC8;
+  border-left: 3px solid #0C1E3D;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #0C1E3D;
+  font-weight: 600;
+}
+
+.dark .citation-highlight {
+  background-color: rgba(234, 219, 200, 0.2);
+  border-left: 3px solid #EADBC8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #FEFAF6;
+  font-weight: 500;
+}
+
+/* Subtle Shimmer Effect for Loading States */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(212, 184, 150, 0.3) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Animated Pulse Glow for Live pgvector Status */
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
+}
+
+.animate-status-pulse {
+  animation: status-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Subtle Grid Texture for Canvas Depth */
+.bg-grid-pattern {
+  background-size: 28px 28px;
+  background-image: linear-gradient(to right, rgba(212, 184, 150, 0.22) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(212, 184, 150, 0.22) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-size: 28px 28px;
+  background-image: linear-gradient(to right, rgba(254, 250, 246, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(254, 250, 246, 0.05) 1px, transparent 1px);
+}
+
+/* ========================================================================= */
+/* Uiverse.io by SelfMadeSystem - Dynamic Morphing Theme Switch              */
+/* ========================================================================= */
+.uiverse-check {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.uiverse-switch {
+  --a: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  border-radius: 2em;
+  box-shadow: 0 0 0 2px #D4B896;
+  aspect-ratio: 212.4992 / 84.4688;
+  background-color: #F5EBE1;
+  transition: background-color var(--a), box-shadow var(--a);
+}
+
+.dark .uiverse-switch {
+  background-color: #102C57;
+  box-shadow: 0 0 0 2px #1E3E62;
+}
+
+.uiverse-switch svg {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.uiverse-switch svg path {
+  color: #0C1E3D;
+  stroke-width: 18;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 136 224;
+  transition:
+    all var(--a),
+    0s transform;
+  transform-origin: center;
+}
+
+.dark .uiverse-switch svg path {
+  color: #FEFAF6;
+}
+
+.uiverse-check:checked ~ .uiverse-switch svg path {
+  stroke-dashoffset: 180;
+  transform: scaleY(-1);
+}
+
+.uiverse-check:checked ~ .uiverse-switch {
+  background-color: #102C57;
+  box-shadow: 0 0 0 2px #D4B896;
+}
