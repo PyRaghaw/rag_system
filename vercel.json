@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "projectSettings": {
+    "sourceFilesOutsideRootDirectory": true
+  },
+  "buildCommand": "npm run build:all",
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-builds",
+      "config": {
+        "distDir": "frontend/dist",
+        "buildCommand": "cd frontend && npm install && npm run build"
+      }
+    },
+    {
+      "src": "backend/requirements.txt",
+      "use": "@vercel/python",
+      "config": {
+        "pythonVersion": "3.12",
+        "maxLambdaSize": "3008mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/app/main.py",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/dist/index.html",
+      "status": 200
+    }
+  ],
+  "env": {
+    "OPENROUTER_API_KEY": "@openrouter_api_key",
+    "DATABASE_URL": "@database_url",
+    "GEMINI_API_KEY": "@gemini_api_key",
+    "EMBEDDING_PROVIDER": "openrouter",
+    "EMBEDDING_MODEL": "text-embedding-004",
+    "EMBEDDING_DIM": "768",
+    "SIMILARITY_THRESHOLD": "0.25",
+    "TOP_K": "5",
+    "LLM_PROVIDER": "openrouter",
+    "WEB_SEARCH_ENABLED": "false",
+    "MCP_TOOLS_ENABLED": "false",
+    "GENERAL_KNOWLEDGE_ENABLED": "false",
+    "APP_HOST": "0.0.0.0",
+    "APP_PORT": "8000",
+    "LOG_LEVEL": "INFO"
+  },
+  "functions": {
+    "backend/app/main.py": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
+}
