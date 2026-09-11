@@ -31,8 +31,16 @@ ALLOWED_EXTENSIONS = {
 }
 
 
-UPLOAD_DIR = Path(__file__).resolve().parent.parent / "data" / "uploaded_documents"
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+def get_upload_dir() -> Path:
+    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        d = Path(tempfile.gettempdir()) / "rag_data" / "uploaded_documents"
+    else:
+        d = Path(__file__).resolve().parent.parent / "data" / "uploaded_documents"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+UPLOAD_DIR = get_upload_dir()
 
 
 @router.post("/ingest", response_model=List[IngestResponse])

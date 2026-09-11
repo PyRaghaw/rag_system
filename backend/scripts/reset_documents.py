@@ -27,9 +27,10 @@ from db.session import engine
 
 async def reset_documents() -> None:
     async with engine.begin() as conn:
-        await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-        await conn.run_sync(lambda sync_conn: Document.__table__.drop(sync_conn, checkfirst=True))
-        await conn.run_sync(lambda sync_conn: Document.__table__.create(sync_conn, checkfirst=True))
+        await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
+        await conn.execute(text("DROP TABLE IF EXISTS document_chunks CASCADE;"))
+        await conn.execute(text("DROP TABLE IF EXISTS documents CASCADE;"))
+        await conn.run_sync(Base.metadata.create_all)
     logger.info("`documents` table dropped and recreated with the current schema. Re-ingest your PDFs now.")
 
 

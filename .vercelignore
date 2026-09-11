@@ -10,8 +10,11 @@ backend/.env.example
 frontend/.env.example
 sample_documents
 node_modules
+test zone
+scratch
 .venv
 __pycache__
 .pytest_cache
 *.pyc
 .DS_Store
+

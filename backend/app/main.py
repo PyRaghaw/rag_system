@@ -19,20 +19,10 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# Permissive CORS for development with Vite frontend (5173), Next.js (3000), and custom ports
-ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-]
-
+# Universal CORS for local development, Vercel deployments, and production origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
-    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    allow_origin_regex=r"^https?://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -92,7 +82,9 @@ from db.session import engine
 async def on_startup() -> None:
     logger.info(f"Starting Strict Enterprise Knowledge Assistant on {settings.app_host}:{settings.app_port}")
     try:
+        from sqlalchemy import text
         async with engine.begin() as conn:
+            await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables verified and synchronized.")
     except Exception as exc:

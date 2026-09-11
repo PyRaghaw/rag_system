@@ -668,7 +668,7 @@ export const App: React.FC = () => {
           msg.id === aiMsgId
             ? {
                 ...msg,
-                text: "Could not connect to the backend RAG service. Please ensure your backend server is running on http://127.0.0.1:8000.",
+                text: "Could not connect to the backend RAG service. Please verify your backend server or Vercel serverless API is online and the database connection is configured.",
                 isRefusal: true,
                 grounded: false,
                 sources: [],

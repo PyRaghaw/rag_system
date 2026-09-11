@@ -7,6 +7,7 @@ sections/diagrams using PyMuPDF (fitz).
 import hashlib
 import os
 import re
+import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -18,8 +19,17 @@ except ImportError:
 from PIL import Image
 from app.logging_config import logger
 
-IMAGE_DIR = Path(__file__).resolve().parent.parent / "data" / "extracted_images"
-IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+
+def get_image_dir() -> Path:
+    if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        d = Path(tempfile.gettempdir()) / "rag_data" / "extracted_images"
+    else:
+        d = Path(__file__).resolve().parent.parent / "data" / "extracted_images"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+IMAGE_DIR = get_image_dir()
 
 
 def is_meaningful_image(image_bytes: bytes, min_size: int = 70) -> bool:

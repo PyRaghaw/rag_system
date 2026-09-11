@@ -38,15 +38,13 @@ except ImportError:
 from app.logging_config import logger
 from core.text_processing import clean_text, detect_headings
 from core.visual_extractor import (
+    IMAGE_DIR,
     is_meaningful_image,
     render_heading_section_crop,
     render_page_snapshot,
 )
 from db.image_repository import delete_images_by_document, store_document_images
 from db.vector_repository import delete_documents_by_filename, store_documents_bulk
-
-IMAGE_DIR = Path(__file__).resolve().parent.parent / "data" / "extracted_images"
-IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _chunk_text_blocks(

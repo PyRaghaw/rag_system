@@ -5,6 +5,7 @@ Enforces strict document-only configuration for enterprise RAG assistant.
 import os
 from functools import lru_cache
 from pathlib import Path
+from typing import Any
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -44,7 +45,7 @@ class Settings(BaseSettings):
     general_knowledge_enabled: bool = False
 
     # Database
-    database_url: str = "postgresql+asyncpg://raghawshukla@localhost:5432/copilot_db"
+    database_url: str = ""
 
     # App
     app_host: str = "0.0.0.0"
@@ -52,17 +53,28 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     max_verification_retries: int = 1
 
-    # Streamlit
+    # Streamlit / Web UI
     backend_url: str = "http://localhost:8000"
 
-    @field_validator("database_url")
+    @field_validator("database_url", mode="before")
     @classmethod
-    def _force_async_driver(cls, v: str) -> str:
-        if v.startswith("postgresql+psycopg2://"):
-            return v.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
-        if v.startswith("postgresql://"):
-            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
-        return v
+    def _force_async_driver(cls, v: Any) -> str:
+        url = str(v or "").strip()
+        if not url:
+            url = (
+                os.getenv("DATABASE_URL")
+                or os.getenv("POSTGRES_URL")
+                or os.getenv("POSTGRES_URL_NON_POOLING")
+                or os.getenv("POSTGRES_PRISMA_URL")
+                or "postgresql+asyncpg://raghawshukla@localhost:5432/copilot_db"
+            )
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://"):
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql+psycopg2://"):
+            url = url.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
+        return url
 
 
 @lru_cache
