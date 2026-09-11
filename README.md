@@ -1,118 +1,181 @@
-Wise Wolves RAG — Enterprise Knowledge Assistant
+🐺 Wise Wolves RAG — Strict Enterprise Knowledge Assistant
 
-Wise Wolves RAG is a document-grounded Retrieval-Augmented Generation (RAG) system designed to provide reliable, context-aware answers from enterprise documents. The system combines vector search, hybrid retrieval, relevance validation, and grounded response generation to minimize unsupported answers.
 
-Key Features
 
-- Strict Grounding: Prevents response generation when sufficient document context is unavailable.
-- Document-Level Scoping: Queries can be restricted to selected documents.
-- Hybrid Retrieval: Combines vector similarity search with full-text search.
-- Visual Document Support: Extracts and references images, diagrams, and tables from PDFs.
-- Conversation History: Maintains persistent conversation threads using PostgreSQL.
-- Real-Time Responses: Supports token streaming through Server-Sent Events (SSE).
-- Enterprise UI: Responsive React-based interface with source inspection and light/dark modes.
 
-Technology Stack
 
-Layer| Technologies
-Frontend| React 19, TypeScript, Tailwind CSS
-Backend| FastAPI, Python
-AI / Orchestration| LangGraph, OpenRouter
-Database| PostgreSQL 16, pgvector
-Retrieval| HNSW Vector Search, Full-Text Search
-Communication| REST API, Server-Sent Events
-Deployment| Docker, Docker Compose
 
-System Architecture
 
-flowchart TD
-    UI[React Frontend] --> API[FastAPI Backend]
-    API --> Router[Query Router]
-    Router --> DB[(PostgreSQL + pgvector)]
-    DB --> Vector[Vector Search]
-    DB --> Text[Full-Text Search]
-    Vector --> Gate[Relevance Gate]
-    Text --> Gate
-    Gate --> Gen[Grounded Generator]
-    Gen --> SSE[SSE Streaming]
-    SSE --> UI
 
-Project Structure
+Wise Wolves RAG is an enterprise-grade, document-bounded Retrieval-Augmented Generation (RAG) system engineered to eliminate AI hallucinations with mathematical certainty. Built upon a fail-closed relevance gatekeeper, strict HNSW cosine vector search, hybrid retrieval, and real-time Server-Sent Events (SSE) token streaming.
 
-rag_system/
-├── backend/
-│   ├── app/
-│   ├── scripts/
-│   ├── tests/
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   └── package.json
-├── docker-compose.yml
-└── README.md
 
-Getting Started
+---
+
+🌟 Key Capabilities
+
+1. Fail-Closed Hallucination Barrier: If retrieved document chunks do not surpass calibrated similarity thresholds, the system halts generation and explicitly reports insufficient grounding rather than fabricating answers.
+
+
+2. Multi-Document Dynamic Scoping: User-selected file isolation allows queries to target specific corporate policies, financial records, or technical documentation.
+
+
+3. Multi-Modal Visual Provenance: Extracts images, diagrams, and tables embedded directly in PDFs, displaying high-resolution visual citations with page, section, and caption context.
+
+
+4. Stateful Conversation History: Persistent thread storage in PostgreSQL with guest mode privacy protection.
+
+
+5. Fluid Enterprise UI/UX: React 19 single-page application with responsive light/dark design token palettes, mobile drawer architecture, live search step indicators, and interactive source inspection drawers.
+
+
+
+
+---
+
+🏗️ System Architecture
+
+flowchart TD  
+    subgraph Client ["Client Interface (React 19 + TypeScript)"]  
+        UI[Enterprise Notebook UI]  
+        SSE[SSE Token Consumer]  
+        Drawers[Citations & Inspection Drawers]  
+    end  
+  
+    subgraph Backend ["FastAPI + LangGraph Orchestrator"]  
+        API[REST & Streaming Endpoints]  
+        Router[Query Intent & Routing Node]  
+        Gate[Relevance Gatekeeper Node]  
+        Gen[Strict Grounded Generator Node]  
+        Verifier[Provenance Citation Verifier]  
+    end  
+  
+    subgraph Storage ["Enterprise Vector Database"]  
+        PG[(PostgreSQL 16 + pgvector)]  
+        HNSW[HNSW Vector Index / 768-dim]  
+        BM25[Full-Text Search BM25 Index]  
+        Threads[Thread & Message Repository]  
+        Images[Document Image Repository]  
+    end  
+  
+    UI -->|Query + Active Doc Scope| API  
+    API --> Router  
+    Router -->|Hybrid Retrieval| PG  
+    PG --> HNSW  
+    PG --> BM25  
+    HNSW --> Gate  
+    Gate -->|Threshold >= 0.25| Gen  
+    Gate -->|Threshold < 0.25| Verifier  
+    Gen -->|Token Streaming SSE| SSE  
+    SSE --> UI  
+    Drawers <-->|Inspect Document Source| API
+
+
+---
+
+👥 Core Creators & Architects
+
+Architect	Role & Contributions	Profiles
+
+Srinjoyee Dey	Lead Frontend Architect & Full-Stack Contributor<br>• Complete frontend engineering from scratch with React 19 & TypeScript.<br>• Real-time SSE token streaming, responsive mobile drawer workspace & bespoke design system.<br>• Full-stack collaboration on backend API endpoints and schema integration.	
+Raghaw Shukla	AI Systems Engineer & Backend / ML Architect<br>• Asynchronous FastAPI service & LangGraph multi-node state graph.<br>• PostgreSQL pgvector HNSW indexing & OpenRouter semantic embeddings.<br>• Document ingestion pipeline with visual diagram extraction & fail-closed relevance gates.	 
+
+
+
+---
+
+🚀 Quick Start Guide
 
 Prerequisites
 
-- Python 3.11+
-- Node.js 20+
-- Docker & Docker Compose
-- OpenRouter API Key
+Python 3.11+
 
-Docker Setup
+Node.js 20+
 
-git clone https://github.com/PyRaghaw/rag_system.git
-cd rag_system
+Docker & Docker Compose (or local PostgreSQL 16 with pgvector)
 
-cp backend/.env.example backend/.env
 
-Add the required environment variables, then run:
+1. Launch with Docker Compose (Fastest)
 
+# Clone the repository  
+git clone https://github.com/PyRaghaw/rag_system.git  
+cd rag_system  
+  
+# Copy environment template  
+cp backend/.env.example backend/.env  
+# (Add your OPENROUTER_API_KEY in backend/.env)  
+  
+# Spin up Database, Backend, and Frontend  
 docker-compose up --build
 
-The application will be available at:
+Frontend: http://localhost:5173
 
-Frontend:  http://localhost:5173
-Backend:   http://localhost:8000
-API Docs:  http://localhost:8000/docs
+Backend API: http://localhost:8000
 
-Local Development
+API Docs (Swagger): http://localhost:8000/docs
 
-Backend
 
-cd backend
 
-python3 -m venv .venv
-source .venv/bin/activate
+---
 
-pip install -r requirements.txt
-cp .env.example .env
+2. Manual Local Development
 
-python scripts/init_db.py
-uvicorn app.main:app --reload
+A. Backend Setup
 
-Frontend
+cd backend  
+  
+# Create & activate virtual environment  
+python3 -m venv .venv  
+source .venv/bin/activate  
+  
+# Install dependencies  
+pip install -r requirements.txt  
+  
+# Configure environment  
+cp .env.example .env  
+# Fill in OPENROUTER_API_KEY, DATABASE_URL, etc.  
+  
+# Run database initialization  
+python scripts/init_db.py  
+  
+# Launch FastAPI development server  
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
-cd frontend
+B. Frontend Setup
 
-npm install
-cp .env.example .env
-
+cd frontend  
+  
+# Install Node dependencies  
+npm install  
+  
+# Configure environment  
+cp .env.example .env  
+  
+# Launch Vite development server  
 npm run dev
 
-Testing
+Visit http://localhost:5173 in your browser.
 
-Backend:
 
-cd backend
+---
+
+🧪 Testing
+
+Run backend tests for database persistence, strict grounding, and routing:
+
+cd backend  
 pytest tests/ -v
 
-Frontend:
+Run frontend build verification:
 
-cd frontend
+cd frontend  
 npm run build
 
-License
 
-This project is licensed under the MIT License.
+---
+
+📄 License
+
+This project is open source and available under the MIT License.
+
+This is the readme file....update this make it look professional and formla and don't give much details
