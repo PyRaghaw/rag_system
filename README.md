@@ -66,8 +66,8 @@ flowchart TD
 
 | Architect | Role & Contributions | Profiles |
 | :--- | :--- | :--- |
-| **Raghaw Shukla** | **AI Systems Engineer & Backend / ML Architect**<br>• Asynchronous FastAPI service & LangGraph multi-node state graph.<br>• PostgreSQL pgvector HNSW indexing & OpenRouter semantic embeddings.<br>• Document ingestion pipeline with visual diagram extraction & fail-closed relevance gates. | [![GitHub](https://img.shields.io/badge/GitHub-raghawshukla-black?logo=github)](https://github.com/PyRaghaw) [![LinkedIn](https://img.shields.io/badge/LinkedIn-raghaw--shukla-0077B5?logo=linkedin)](https://linkedin.com/in/raghaw-shukla) |
 | **Srinjoyee Dey** | **Lead Frontend Architect & Full-Stack Contributor**<br>• Complete frontend engineering from scratch with React 19 & TypeScript.<br>• Real-time SSE token streaming, responsive mobile drawer workspace & bespoke design system.<br>• Full-stack collaboration on backend API endpoints and schema integration. | [![LinkedIn](https://img.shields.io/badge/LinkedIn-srinjoyee--dey-0077B5?logo=linkedin)](https://www.linkedin.com/in/srinjoyee-dey/) |
+| **Raghaw Shukla** | **AI Systems Engineer & Backend / ML Architect**<br>• Asynchronous FastAPI service & LangGraph multi-node state graph.<br>• PostgreSQL pgvector HNSW indexing & OpenRouter semantic embeddings.<br>• Document ingestion pipeline with visual diagram extraction & fail-closed relevance gates. | [![GitHub](https://img.shields.io/badge/GitHub-raghawshukla-black?logo=github)](https://github.com/PyRaghaw) [![LinkedIn](https://img.shields.io/badge/LinkedIn-raghaw--shukla-0077B5?logo=linkedin)](https://linkedin.com/in/raghaw-shukla) |
 
 ---
 

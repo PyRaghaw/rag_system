@@ -420,13 +420,96 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Meet the Architects &amp; Developers
             </h2>
             <p className="text-xs sm:text-sm text-[#1B2D4B] dark:text-[#EADBC8] font-medium leading-relaxed">
-              Engineered collaboratively — <strong>Raghaw Shukla</strong> (Backend, ML &amp; Vector Architecture) &amp; <strong>Srinjoyee Dey</strong> (Full Frontend Architecture &amp; Backend Engineering Contributor).
+              Engineered collaboratively — <strong>Srinjoyee Dey</strong> (Full Frontend Architecture &amp; Backend Engineering Contributor) &amp; <strong>Raghaw Shukla</strong> (Backend, ML &amp; Vector Architecture).
             </p>
           </div>
 
-          {/* Profile Cards Showcase: 2 Column Grid */}
+          {/* Profile Cards Showcase: 2 Column Grid (Srinjoyee Dey first, Raghaw Shukla second) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-            {/* Developer 1: Raghaw Shukla (Backend & ML) */}
+            {/* Developer 1: Srinjoyee Dey (Frontend & Full-Stack) */}
+            <div className="bg-[#FEFAF6] dark:bg-[#0B192C] rounded-3xl border border-[#D4B896] dark:border-[#1E3E62] p-6 sm:p-8 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden transition-all hover:shadow-2xl">
+              <div className="space-y-6">
+                {/* Header: Monogram + Info */}
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#0C1E3D] dark:bg-[#EADBC8] text-[#FEFAF6] dark:text-[#0C1E3D] flex items-center justify-center font-display font-black text-2xl sm:text-3xl shadow-xl border-3 border-[#D4B896] flex-shrink-0">
+                    SD
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-display font-bold text-xl sm:text-2xl text-[#0C1E3D] dark:text-[#FEFAF6]">
+                      Srinjoyee Dey
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#455A7A] dark:text-[#B8C9E0] font-semibold">
+                      Lead Frontend Architect &amp; Full-Stack Contributor
+                    </p>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#F5EBE1] dark:bg-[#102C57] border border-[#D4B896] dark:border-[#24487A] text-[11px] font-bold text-[#0C1E3D] dark:text-[#FEFAF6]">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Complete Frontend Architecture &amp; Backend Collaboration</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Story / Engineering Focus */}
+                <div className="space-y-2.5">
+                  <h4 className="font-display font-bold text-sm sm:text-base text-[#0C1E3D] dark:text-[#FEFAF6]">
+                    Complete Frontend Architecture &amp; Full-Stack Contribution
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#1B2D4B] dark:text-[#EADBC8] leading-relaxed font-medium">
+                    Architected and built the entire frontend application from scratch from the ground up. Engineered the responsive React 19 &amp; TypeScript workspace, real-time Server-Sent Events (SSE) token streaming UX, interactive source citations inspection drawers, and fluid light/dark design token system. In addition to owning 100% of the frontend engineering, actively assisted and contributed to the backend integration, API endpoints, and full-stack workflow.
+                  </p>
+                </div>
+
+                {/* Tech Stack Chips */}
+                <div className="space-y-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#455A7A] dark:text-[#B8C9E0] block">
+                    Core Technical Stack &amp; Tooling:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      'Complete Frontend Engineering',
+                      'React 19 & TypeScript',
+                      'Vite & TailwindCSS System',
+                      'Real-Time SSE Streaming',
+                      'Responsive Mobile & Desktop UX',
+                      'FastAPI Integration & Backend Support',
+                      'Full-Stack Collaboration',
+                    ].map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 rounded-lg bg-[#F5EBE1] dark:bg-[#102C57] text-[#0C1E3D] dark:text-[#FEFAF6] border border-[#D4B896] dark:border-[#24487A] text-[11px] font-bold shadow-2xs"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Links */}
+              <div className="pt-2 flex flex-wrap items-center gap-2.5 border-t border-[#D4B896]/40 dark:border-[#1E3E62]/60">
+                <button
+                  type="button"
+                  onClick={onEnterWorkspace}
+                  className="px-4 py-2 rounded-xl bg-[#0C1E3D] hover:bg-[#15386B] dark:bg-[#EADBC8] dark:hover:bg-[#FEFAF6] text-[#FEFAF6] dark:text-[#0C1E3D] font-extrabold text-xs flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
+                >
+                  <span>Launch Workspace</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+
+                <a
+                  href="https://www.linkedin.com/in/srinjoyee-dey/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-[#F5EBE1] hover:bg-[#EADBC8] dark:bg-[#102C57] dark:hover:bg-[#15386B] text-[#0C1E3D] dark:text-[#FEFAF6] border border-[#D4B896] dark:border-[#24487A] font-bold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                  <span>LinkedIn Profile</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Developer 2: Raghaw Shukla (Backend & ML) */}
             <div className="bg-[#FEFAF6] dark:bg-[#0B192C] rounded-3xl border border-[#D4B896] dark:border-[#1E3E62] p-6 sm:p-8 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden transition-all hover:shadow-2xl">
               <div className="space-y-6">
                 {/* Header: Monogram + Info */}
@@ -520,89 +603,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </a>
               </div>
             </div>
-
-            {/* Developer 2: Srinjoyee Dey (Frontend & UI/UX) */}
-            <div className="bg-[#FEFAF6] dark:bg-[#0B192C] rounded-3xl border border-[#D4B896] dark:border-[#1E3E62] p-6 sm:p-8 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden transition-all hover:shadow-2xl">
-              <div className="space-y-6">
-                {/* Header: Monogram + Info */}
-                <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#0C1E3D] dark:bg-[#EADBC8] text-[#FEFAF6] dark:text-[#0C1E3D] flex items-center justify-center font-display font-black text-2xl sm:text-3xl shadow-xl border-3 border-[#D4B896] flex-shrink-0">
-                    SD
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="font-display font-bold text-xl sm:text-2xl text-[#0C1E3D] dark:text-[#FEFAF6]">
-                      Srinjoyee Dey
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#455A7A] dark:text-[#B8C9E0] font-semibold">
-                      Lead Frontend Architect &amp; Full-Stack Contributor
-                    </p>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#F5EBE1] dark:bg-[#102C57] border border-[#D4B896] dark:border-[#24487A] text-[11px] font-bold text-[#0C1E3D] dark:text-[#FEFAF6]">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Complete Frontend Architecture &amp; Backend Collaboration</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Story / Engineering Focus */}
-                <div className="space-y-2.5">
-                  <h4 className="font-display font-bold text-sm sm:text-base text-[#0C1E3D] dark:text-[#FEFAF6]">
-                    Complete Frontend Architecture &amp; Full-Stack Contribution
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#1B2D4B] dark:text-[#EADBC8] leading-relaxed font-medium">
-                    Architected and built the entire frontend application from scratch from the ground up. Engineered the responsive React 19 &amp; TypeScript workspace, real-time Server-Sent Events (SSE) token streaming UX, interactive source citations inspection drawers, and fluid light/dark design token system. In addition to owning 100% of the frontend engineering, actively assisted and contributed to the backend integration, API endpoints, and full-stack workflow.
-                  </p>
-                </div>
-
-                {/* Tech Stack Chips */}
-                <div className="space-y-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#455A7A] dark:text-[#B8C9E0] block">
-                    Core Technical Stack &amp; Tooling:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {[
-                      'Complete Frontend Engineering',
-                      'React 19 & TypeScript',
-                      'Vite & TailwindCSS System',
-                      'Real-Time SSE Streaming',
-                      'Responsive Mobile & Desktop UX',
-                      'FastAPI Integration & Backend Support',
-                      'Full-Stack Collaboration',
-                    ].map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-[#F5EBE1] dark:bg-[#102C57] text-[#0C1E3D] dark:text-[#FEFAF6] border border-[#D4B896] dark:border-[#24487A] text-[11px] font-bold shadow-2xs"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Links */}
-              <div className="pt-2 flex flex-wrap items-center gap-2.5 border-t border-[#D4B896]/40 dark:border-[#1E3E62]/60">
-                <button
-                  type="button"
-                  onClick={onEnterWorkspace}
-                  className="px-4 py-2 rounded-xl bg-[#0C1E3D] hover:bg-[#15386B] dark:bg-[#EADBC8] dark:hover:bg-[#FEFAF6] text-[#FEFAF6] dark:text-[#0C1E3D] font-extrabold text-xs flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
-                >
-                  <span>Launch Workspace</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-
-                <a
-                  href="https://www.linkedin.com/in/srinjoyee-dey/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3.5 py-2 rounded-xl bg-[#F5EBE1] hover:bg-[#EADBC8] dark:bg-[#102C57] dark:hover:bg-[#15386B] text-[#0C1E3D] dark:text-[#FEFAF6] border border-[#D4B896] dark:border-[#24487A] font-bold text-xs flex items-center gap-1.5 transition-colors"
-                >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                  </svg>
-                  <span>LinkedIn Profile</span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -682,11 +682,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </span>
               <span className="text-xs text-[#D4B896] dark:text-[#B8C9E0]/60">•</span>
               <span className="text-xs font-bold text-[#455A7A] dark:text-[#B8C9E0]">
-                Designed &amp; Built by Raghaw Shukla &amp; Srinjoyee Dey
+                Designed &amp; Built by Srinjoyee Dey &amp; Raghaw Shukla
               </span>
             </div>
             <p className="text-xs text-[#455A7A] dark:text-[#B8C9E0]/80 font-medium">
-              Submitted for TCS Hackathon 2026. Built with PostgreSQL pgvector, LangGraph & React.
+              Enterprise Knowledge Assistant. Built with PostgreSQL pgvector, LangGraph &amp; React 19.
             </p>
           </div>
 
